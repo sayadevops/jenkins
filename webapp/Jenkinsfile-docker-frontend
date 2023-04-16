@@ -3,13 +3,6 @@ pipeline {
       label 'docker'
     }
 
-    environment {
-
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-     registry = "yellaiahdocker/frontend-lms"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
-    }
 
     stages {
         
@@ -19,20 +12,7 @@ pipeline {
                 sh 'cd webapp && docker build -t yellaiahdocker/frontend-lms .'
             }
         }
-        stage('Logging into dockerhub account') {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-        stage('pushing the docker image into dockerhub') {
-            steps {
-                  sh 'docker push yellaiahdocker/frontend-lms'
-            }
-        }
-        stage('Remove old docker images') {
-             steps {
-                 sh 'docker rmi -f yellaiahdocker/frontend-lms'
-            }
+      
         }
          stage('Running the docker container') {
             steps {
