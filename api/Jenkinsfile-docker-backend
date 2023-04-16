@@ -6,12 +6,6 @@ pipeline {
   
     stages {
         
-         stage('creating  new docker network') {
-            steps {
-               
-                sh 'docker network create lmsnetwork'
-            }
-        }
 
         stage('Building the docker image') {
             steps {
